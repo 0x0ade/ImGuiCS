@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5011059-C7B9-4EDA-9EBD-7595F0E85BD3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ImGuiSDL2CS</RootNamespace>
+    <AssemblyName>ImGuiSDL2CS</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\ImGui.NET\ImGuiColorEditMode.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiCol.cs" />
+    <Compile Include="src\ImGui.NET\ImDrawCmd.cs" />
+    <Compile Include="src\ImGui.NET\ImDrawChannel.cs" />
+    <Compile Include="src\ImGui.NET\ImDrawData.cs" />
+    <Compile Include="src\ImGui.NET\ImDrawList.cs" />
+    <Compile Include="src\ImGui.NET\ImDrawVert.cs" />
+    <Compile Include="src\ImGui.NET\ImFont.cs" />
+    <Compile Include="src\ImGui.NET\ImFontAtlas.cs" />
+    <Compile Include="src\ImGui.NET\ImFontConfig.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiKey.cs" />
+    <Compile Include="src\ImGui.NET\ImGui.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiNative.cs" />
+    <Compile Include="src\ImGui.NET\ImVec.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiListClipper.cs" />
+    <Compile Include="src\ImGui.NET\ImVector.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiInputTextFlags.cs" />
+    <Compile Include="src\ImGui.NET\IntStructs.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiIO.cs" />
+    <Compile Include="src\ImGui.NET\MemoryEditor.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiMouseCursor.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiSelectableFlags.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiSetCond.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiStorage.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiStyle.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiStyleVar.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiTextEditCallbackData.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiTreeNodeFlags.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiWindowFlags.cs" />
+    <Compile Include="src\ImGuiSDL2CS\FileDialog.cs" />
+    <Compile Include="src\ImGuiSDL2CS\ImGuiSDL2CSHelper.cs" />
+    <Compile Include="src\ImGui.NET\TextInputBuffer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\ImGuiSDL2CS\ImGuiSDL2CSWindow.cs" />
+    <Compile Include="src\ImGuiSDL2CS\SDL2Helper.cs" />
+    <Compile Include="src\ImGuiSDL2CS\SDL2Window.cs" />
+    <None Include="src\ImGui.NET\LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\libs\SDL2.dll">
+      <Link>SDL2.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\libs\cimgui.dll">
+      <Link>cimgui.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MiniTK\MiniTK.csproj">
+      <Project>{0c7fc6cc-6a37-4776-b5b0-4b5a1327f603}</Project>
+      <Name>MiniTK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SDL2-CS\SDL2-CS.csproj">
+      <Project>{85480198-8711-4355-830e-72fd794ad3f6}</Project>
+      <Name>SDL2-CS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
