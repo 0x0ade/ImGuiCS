@@ -90,7 +90,7 @@ namespace YourGameNamespace {
         // Return false to not allow the default event handler to process it.
         public bool MyEventHandler(SDL2Window _self, SDL.SDL_Event e) {
             // We're replacing OnEvent and thus call ImGuiSDL2CSHelper.OnEvent manually.
-            if (!ImGuiSDL2CSHelper.OnEvent(e, ref g_MouseWheel, g_MousePressed))
+            if (!ImGuiSDL2CSHelper.HandleEvent(e, ref g_MouseWheel, g_MousePressed))
                 return false;
 
             // Any custom event handling can happen here.

@@ -62,7 +62,7 @@ namespace ImGuiSDL2CS {
         }
 
         public bool ImGuiOnEvent(SDL2Window window, SDL.SDL_Event e)
-            => ImGuiSDL2CSHelper.OnEvent(e, ref g_MouseWheel, g_MousePressed);
+            => ImGuiSDL2CSHelper.HandleEvent(e, ref g_MouseWheel, g_MousePressed);
 
         public void ImGuiOnLoop(SDL2Window window) {
             GL.ClearColor(0.1f, 0.125f, 0.15f, 1f);

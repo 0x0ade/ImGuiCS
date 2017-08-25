@@ -48,13 +48,6 @@ namespace ImGuiSDL2CS {
                 io.FontAtlas.AddDefaultFont();
         }
 
-        /*
-        public static int OnTextEdited(ImGuiTextEditCallbackData* data) {
-            char currentEventChar = (char) data->EventChar;
-            return 0;
-        }
-        */
-
         public static void NewFrame(ImVec2 size, ImVec2 scale, ImVec2 mousePosition, uint mouseMask, ref float mouseWheel, bool[] mousePressed, ref double g_Time) {
             ImGuiIO io = ImGui.GetIO();
             io.DisplaySize = size;
@@ -170,7 +163,7 @@ namespace ImGuiSDL2CS {
             GL.Scissor(lastScissorBox.X, lastScissorBox.Y, lastScissorBox.Z, lastScissorBox.W);
         }
 
-        public static bool OnEvent(SDL.SDL_Event e, ref float mouseWheel, bool[] mousePressed) {
+        public static bool HandleEvent(SDL.SDL_Event e, ref float mouseWheel, bool[] mousePressed) {
             ImGuiIO io = ImGui.GetIO();
             switch (e.type) {
                 case SDL.SDL_EventType.SDL_MOUSEWHEEL:
