@@ -306,16 +306,16 @@ namespace ImGuiNET {
         public static bool Button(string message, ImVec2 size)
             => ImGuiNative.igButton(message, size);
 
-        public static void SetNextWindowSize(ImVec2 size, ImGuiSetCond condition)
+        public static void SetNextWindowSize(ImVec2 size, ImGuiCond condition)
             => ImGuiNative.igSetNextWindowSize(size, condition);
 
         public static void SetNextWindowFocus()
             => ImGuiNative.igSetNextWindowFocus();
 
-        public static void SetNextWindowPos(ImVec2 position, ImGuiSetCond condition)
+        public static void SetNextWindowPos(ImVec2 position, ImGuiCond condition)
             => ImGuiNative.igSetNextWindowPos(position, condition);
 
-        public static void SetNextWindowPosCenter(ImGuiSetCond condition)
+        public static void SetNextWindowPosCenter(ImGuiCond condition)
             => ImGuiNative.igSetNextWindowPosCenter(condition);
 
         public static void AddInputCharacter(char keyChar)
@@ -365,7 +365,7 @@ namespace ImGuiNET {
         }
 
 
-        public static void SetWindowSize(ImVec2 size, ImGuiSetCond cond = 0)
+        public static void SetWindowSize(ImVec2 size, ImGuiCond cond = 0)
             => ImGuiNative.igSetWindowSize(size, cond);
 
         public static bool Begin(string windowTitle)
@@ -376,16 +376,16 @@ namespace ImGuiNET {
             return ImGuiNative.igBegin(windowTitle, ref opened, flags);
         }
 
-        public static bool Begin(string windowTitle, ref bool opened, ImGuiWindowFlags flags)
+        public static bool Begin(string windowTitle, ref bool opened, ImGuiWindowFlags flags = ImGuiWindowFlags.Default)
             => ImGuiNative.igBegin(windowTitle, ref opened, flags);
 
-        public static bool Begin(string windowTitle, ref bool opened, float backgroundAlpha, ImGuiWindowFlags flags)
+        public static bool Begin(string windowTitle, ref bool opened, float backgroundAlpha, ImGuiWindowFlags flags = ImGuiWindowFlags.Default)
             => ImGuiNative.igBegin2(windowTitle, ref opened, new ImVec2(), backgroundAlpha, flags);
 
-        public static bool Begin(string windowTitle, ref bool opened, ImVec2 startingSize, ImGuiWindowFlags flags)
+        public static bool Begin(string windowTitle, ref bool opened, ImVec2 startingSize, ImGuiWindowFlags flags = ImGuiWindowFlags.Default)
             => ImGuiNative.igBegin2(windowTitle, ref opened, startingSize, 1f, flags);
 
-        public static bool Begin(string windowTitle, ref bool opened, ImVec2 startingSize, float backgroundAlpha, ImGuiWindowFlags flags)
+        public static bool Begin(string windowTitle, ref bool opened, ImVec2 startingSize, float backgroundAlpha, ImGuiWindowFlags flags = ImGuiWindowFlags.Default)
             => ImGuiNative.igBegin2(windowTitle, ref opened, startingSize, backgroundAlpha, flags);
 
         public static bool BeginMenu(string label)
@@ -421,7 +421,7 @@ namespace ImGuiNET {
         public static bool MenuItem(string label, string shortcut, bool selected, bool enabled)
             => ImGuiNative.igMenuItem(label, shortcut, selected, enabled);
 
-        public static unsafe bool InputText(string label, byte[] textBuffer, uint bufferSize, ImGuiInputTextFlags flags, ImGuiTextEditCallback textEditCallback = null)
+        public static unsafe bool InputText(string label, byte[] textBuffer, uint bufferSize, ImGuiInputTextFlags flags = ImGuiInputTextFlags.Default, ImGuiTextEditCallback textEditCallback = null)
             => InputText(label, textBuffer, bufferSize, flags, textEditCallback, IntPtr.Zero);
 
         public static unsafe bool InputText(string label, byte[] textBuffer, uint bufferSize, ImGuiInputTextFlags flags, ImGuiTextEditCallback textEditCallback, IntPtr userData) {
@@ -430,13 +430,13 @@ namespace ImGuiNET {
                 return InputText(label, new IntPtr(ptrBuf), bufferSize, flags, textEditCallback, userData);
         }
 
-        public static unsafe bool InputText(string label, IntPtr textBuffer, uint bufferSize, ImGuiInputTextFlags flags, ImGuiTextEditCallback textEditCallback = null)
+        public static unsafe bool InputText(string label, IntPtr textBuffer, uint bufferSize, ImGuiInputTextFlags flags = ImGuiInputTextFlags.Default, ImGuiTextEditCallback textEditCallback = null)
             => InputText(label, textBuffer, bufferSize, flags, textEditCallback, IntPtr.Zero);
 
         public static unsafe bool InputText(string label, IntPtr textBuffer, uint bufferSize, ImGuiInputTextFlags flags, ImGuiTextEditCallback textEditCallback, IntPtr userData)
             => ImGuiNative.igInputText(label, textBuffer, bufferSize, flags, textEditCallback, userData.ToPointer());
 
-        public static void Endow()
+        public static void End()
             => ImGuiNative.igEnd();
 
         public static void PushStyleColor(ImGuiCol target, ImVec4 color)
@@ -754,9 +754,9 @@ namespace ImGuiNET {
             => ImGuiNative.igSetTooltip(text);
 
         public static void SetNextTreeNodeOpen(bool opened)
-            => ImGuiNative.igSetNextTreeNodeOpen(opened, ImGuiSetCond.Always);
+            => ImGuiNative.igSetNextTreeNodeOpen(opened, ImGuiCond.Always);
 
-        public static void SetNextTreeNodeOpen(bool opened, ImGuiSetCond setCondition)
+        public static void SetNextTreeNodeOpen(bool opened, ImGuiCond setCondition)
             => ImGuiNative.igSetNextTreeNodeOpen(opened, setCondition);
 
         public static bool TreeNode(string label)

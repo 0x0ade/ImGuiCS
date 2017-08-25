@@ -67,7 +67,7 @@
     <Compile Include="src\ImGui.NET\MemoryEditor.cs" />
     <Compile Include="src\ImGui.NET\ImGuiMouseCursor.cs" />
     <Compile Include="src\ImGui.NET\ImGuiSelectableFlags.cs" />
-    <Compile Include="src\ImGui.NET\ImGuiSetCond.cs" />
+    <Compile Include="src\ImGui.NET\ImGuiCond.cs" />
     <Compile Include="src\ImGui.NET\ImGuiStorage.cs" />
     <Compile Include="src\ImGui.NET\ImGuiStyle.cs" />
     <Compile Include="src\ImGui.NET\ImGuiStyleVar.cs" />
@@ -75,6 +75,7 @@
     <Compile Include="src\ImGui.NET\ImGuiTreeNodeFlags.cs" />
     <Compile Include="src\ImGui.NET\ImGuiWindowFlags.cs" />
     <Compile Include="src\ImGuiSDL2CS\FileDialog.cs" />
+    <Compile Include="src\ImGuiSDL2CS\SDL2CSGL.cs" />
     <Compile Include="src\ImGuiSDL2CS\ImGuiSDL2CSHelper.cs" />
     <Compile Include="src\ImGui.NET\TextInputBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,10 +95,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MiniTK\MiniTK.csproj">
-      <Project>{0c7fc6cc-6a37-4776-b5b0-4b5a1327f603}</Project>
-      <Name>MiniTK</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SDL2-CS\SDL2-CS.csproj">
       <Project>{85480198-8711-4355-830e-72fd794ad3f6}</Project>
       <Name>SDL2-CS</Name>

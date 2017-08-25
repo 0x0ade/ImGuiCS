@@ -58,7 +58,7 @@ namespace ImGuiNET
         {
             if (!ImGui.Begin(title))
             {
-                ImGui.Endow();
+                ImGui.End();
                 return;
             }
 
@@ -232,7 +232,7 @@ namespace ImGuiNET
             }
             ImGui.PopItemWidth();
             
-            ImGui.Endow();
+            ImGui.End();
         }
     }
 }

@@ -84,11 +84,11 @@ namespace ImGuiNET {
         public static extern bool igIsWindowCollapsed();
 
         [DllImport(cimguiLib)]
-        public static extern void igSetNextWindowPos(ImVec2 pos, ImGuiSetCond cond);
+        public static extern void igSetNextWindowPos(ImVec2 pos, ImGuiCond cond);
         [DllImport(cimguiLib)]
-        public static extern void igSetNextWindowPosCenter(ImGuiSetCond cond);
+        public static extern void igSetNextWindowPosCenter(ImGuiCond cond);
         [DllImport(cimguiLib)]
-        public static extern void igSetNextWindowSize(ImVec2 size, ImGuiSetCond cond);
+        public static extern void igSetNextWindowSize(ImVec2 size, ImGuiCond cond);
         public delegate void ImGuiSizeConstraintCallback(IntPtr data);
         [DllImport(cimguiLib)]
         public static extern void igSetNextWindowSizeConstraints(ImVec2 size_min, ImVec2 size_max, ImGuiSizeConstraintCallback custom_callback, void* custom_callback_data);
@@ -97,23 +97,23 @@ namespace ImGuiNET {
         [DllImport(cimguiLib)]
         public static extern void igSetNextWindowContentWidth(float width);
         [DllImport(cimguiLib)]
-        public static extern void igSetNextWindowCollapsed(bool collapsed, ImGuiSetCond cond);
+        public static extern void igSetNextWindowCollapsed(bool collapsed, ImGuiCond cond);
         [DllImport(cimguiLib)]
         public static extern void igSetNextWindowFocus();
         [DllImport(cimguiLib)]
-        public static extern void igSetWindowPos(ImVec2 pos, ImGuiSetCond cond);  //(not recommended)
+        public static extern void igSetWindowPos(ImVec2 pos, ImGuiCond cond);  //(not recommended)
         [DllImport(cimguiLib)]
-        public static extern void igSetWindowSize(ImVec2 size, ImGuiSetCond cond); //(not recommended)
+        public static extern void igSetWindowSize(ImVec2 size, ImGuiCond cond); //(not recommended)
         [DllImport(cimguiLib)]
-        public static extern void igSetWindowCollapsed(bool collapsed, ImGuiSetCond cond); //(not recommended)
+        public static extern void igSetWindowCollapsed(bool collapsed, ImGuiCond cond); //(not recommended)
         [DllImport(cimguiLib)]
         public static extern void igSetWindowFocus(); //(not recommended)
         [DllImport(cimguiLib)]
-        public static extern void igSetWindowPosByName(string name, ImVec2 pos, ImGuiSetCond cond);
+        public static extern void igSetWindowPosByName(string name, ImVec2 pos, ImGuiCond cond);
         [DllImport(cimguiLib)]
-        public static extern void igSetWindowSize2(string name, ImVec2 size, ImGuiSetCond cond);
+        public static extern void igSetWindowSize2(string name, ImVec2 size, ImGuiCond cond);
         [DllImport(cimguiLib)]
-        public static extern void igSetWindowCollapsed2(string name, bool collapsed, ImGuiSetCond cond);
+        public static extern void igSetWindowCollapsed2(string name, bool collapsed, ImGuiCond cond);
         [DllImport(cimguiLib)]
         public static extern void igSetWindowFocus2(string name);
 
@@ -494,7 +494,7 @@ namespace ImGuiNET {
         [DllImport(cimguiLib)]
         public static extern float igGetTreeNodeToLabelSpacing();
         [DllImport(cimguiLib)]
-        public static extern void igSetNextTreeNodeOpen(bool opened, ImGuiSetCond cond);
+        public static extern void igSetNextTreeNodeOpen(bool opened, ImGuiCond cond);
         [DllImport(cimguiLib)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool igCollapsingHeader(string label, ImGuiTreeNodeFlags flags = 0);

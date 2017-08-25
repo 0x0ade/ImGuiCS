@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using ImGuiNET;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -89,23 +86,22 @@ namespace ImGuiSDL2CS {
         }
         
         public static void RenderDrawData(ImDrawData drawData, int displayW, int displayH) {
-            // Rendering
-            GL.Viewport(0, 0, displayW, displayH);
-
             // We are using the OpenGL fixed pipeline to make the example code simpler to read!
             // Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled, vertex/texcoord/color pointers.
-            int last_texture;
-            GL.GetInteger(GetPName.TextureBinding2D, out last_texture);
-            GL.PushAttrib(AttribMask.EnableBit | AttribMask.ColorBufferBit | AttribMask.TransformBit);
-            GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-            GL.Disable(EnableCap.CullFace);
-            GL.Disable(EnableCap.DepthTest);
-            GL.Enable(EnableCap.ScissorTest);
-            GL.EnableClientState(ArrayCap.VertexArray);
-            GL.EnableClientState(ArrayCap.TextureCoordArray);
-            GL.EnableClientState(ArrayCap.ColorArray);
-            GL.Enable(EnableCap.Texture2D);
+            int lastTexture; GL.GetIntegerv(GL.Enum.GL_TEXTURE_BINDING_2D, out lastTexture);
+            Int4 lastViewport; GL.GetIntegerv4(GL.Enum.GL_VIEWPORT, out lastViewport);
+            Int4 lastScissorBox; GL.GetIntegerv4(GL.Enum.GL_SCISSOR_BOX, out lastScissorBox);
+
+            GL.PushAttrib(GL.Enum.GL_ENABLE_BIT | GL.Enum.GL_COLOR_BUFFER_BIT | GL.Enum.GL_TRANSFORM_BIT);
+            GL.Enable(GL.Enum.GL_BLEND);
+            GL.BlendFunc(GL.Enum.GL_SRC_ALPHA, GL.Enum.GL_ONE_MINUS_SRC_ALPHA);
+            GL.Disable(GL.Enum.GL_CULL_FACE);
+            GL.Disable(GL.Enum.GL_DEPTH_TEST);
+            GL.Enable(GL.Enum.GL_SCISSOR_TEST);
+            GL.EnableClientState(GL.Enum.GL_VERTEX_ARRAY);
+            GL.EnableClientState(GL.Enum.GL_TEXTURE_COORD_ARRAY);
+            GL.EnableClientState(GL.Enum.GL_COLOR_ARRAY);
+            GL.Enable(GL.Enum.GL_TEXTURE_2D);
 
             GL.UseProgram(0);
 
@@ -114,7 +110,8 @@ namespace ImGuiSDL2CS {
             ImGui.ScaleClipRects(drawData, io.DisplayFramebufferScale);
 
             // Setup orthographic projection matrix
-            GL.MatrixMode(MatrixMode.Projection);
+            GL.Viewport(0, 0, displayW, displayH);
+            GL.MatrixMode(GL.Enum.GL_PROJECTION);
             GL.PushMatrix();
             GL.LoadIdentity();
             GL.Ortho(
@@ -125,7 +122,7 @@ namespace ImGuiSDL2CS {
                 -1.0f,
                 1.0f
             );
-            GL.MatrixMode(MatrixMode.Modelview);
+            GL.MatrixMode(GL.Enum.GL_MODELVIEW);
             GL.PushMatrix();
             GL.LoadIdentity();
 
@@ -136,9 +133,9 @@ namespace ImGuiSDL2CS {
                 ImVector<ImDrawVert> vtxBuffer = cmdList.VtxBuffer;
                 ImVector<ushort> idxBuffer = cmdList.IdxBuffer;
 
-                GL.VertexPointer(2, VertexPointerType.Float, ImDrawVert.Size, new IntPtr((long) vtxBuffer.Data + ImDrawVert.PosOffset));
-                GL.TexCoordPointer(2, TexCoordPointerType.Float, ImDrawVert.Size, new IntPtr((long) vtxBuffer.Data + ImDrawVert.UVOffset));
-                GL.ColorPointer(4, ColorPointerType.UnsignedByte, ImDrawVert.Size, new IntPtr((long) vtxBuffer.Data + ImDrawVert.ColOffset));
+                GL.VertexPointer(2, GL.Enum.GL_FLOAT, ImDrawVert.Size, new IntPtr((long) vtxBuffer.Data + ImDrawVert.PosOffset));
+                GL.TexCoordPointer(2, GL.Enum.GL_FLOAT, ImDrawVert.Size, new IntPtr((long) vtxBuffer.Data + ImDrawVert.UVOffset));
+                GL.ColorPointer(4, GL.Enum.GL_UNSIGNED_BYTE, ImDrawVert.Size, new IntPtr((long) vtxBuffer.Data + ImDrawVert.ColOffset));
 
                 long idxBufferOffset = 0;
                 for (int cmdi = 0; cmdi < cmdList.CmdBuffer.Size; cmdi++) {
@@ -146,29 +143,31 @@ namespace ImGuiSDL2CS {
                     if (pcmd.UserCallback != IntPtr.Zero) {
                         pcmd.InvokeUserCallback(ref cmdList, ref pcmd);
                     } else {
-                        GL.BindTexture(TextureTarget.Texture2D, (int) pcmd.TextureId);
+                        GL.BindTexture(GL.Enum.GL_TEXTURE_2D, (int) pcmd.TextureId);
                         GL.Scissor(
                             (int) pcmd.ClipRect.X,
                             (int) (io.DisplaySize.Y - pcmd.ClipRect.W),
                             (int) (pcmd.ClipRect.Z - pcmd.ClipRect.X),
                             (int) (pcmd.ClipRect.W - pcmd.ClipRect.Y)
                         );
-                        GL.DrawElements(BeginMode.Triangles, (int) pcmd.ElemCount, DrawElementsType.UnsignedShort, new IntPtr((long) idxBuffer.Data + idxBufferOffset));
+                        GL.DrawElements(GL.Enum.GL_TRIANGLES, (int) pcmd.ElemCount, GL.Enum.GL_UNSIGNED_SHORT, new IntPtr((long) idxBuffer.Data + idxBufferOffset));
                     }
                     idxBufferOffset += pcmd.ElemCount * 2 /*sizeof(ushort)*/;
                 }
             }
 
             // Restore modified state
-            GL.DisableClientState(ArrayCap.ColorArray);
-            GL.DisableClientState(ArrayCap.TextureCoordArray);
-            GL.DisableClientState(ArrayCap.VertexArray);
-            GL.BindTexture(TextureTarget.Texture2D, last_texture);
-            GL.MatrixMode(MatrixMode.Modelview);
+            GL.DisableClientState(GL.Enum.GL_COLOR_ARRAY);
+            GL.DisableClientState(GL.Enum.GL_TEXTURE_COORD_ARRAY);
+            GL.DisableClientState(GL.Enum.GL_VERTEX_ARRAY);
+            GL.BindTexture(GL.Enum.GL_TEXTURE_2D, lastTexture);
+            GL.MatrixMode(GL.Enum.GL_MODELVIEW);
             GL.PopMatrix();
-            GL.MatrixMode(MatrixMode.Projection);
+            GL.MatrixMode(GL.Enum.GL_PROJECTION);
             GL.PopMatrix();
             GL.PopAttrib();
+            GL.Viewport(lastViewport.X, lastViewport.Y, lastViewport.Z, lastViewport.W);
+            GL.Scissor(lastScissorBox.X, lastScissorBox.Y, lastScissorBox.Z, lastScissorBox.W);
         }
 
         public static bool OnEvent(SDL.SDL_Event e, ref float mouseWheel, bool[] mousePressed) {

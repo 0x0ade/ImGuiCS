@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 
 namespace ImGuiSDL2CS {
     public class SDL2Window : IDisposable {
@@ -107,8 +104,7 @@ namespace ImGuiSDL2CS {
 
             if ((flags & SDL.SDL_WindowFlags.SDL_WINDOW_OPENGL) == SDL.SDL_WindowFlags.SDL_WINDOW_OPENGL) {
                 _GLContext = SDL.SDL_GL_CreateContext(_Handle);
-                GraphicsContext.CurrentContext = _GLContext;
-                GL.LoadAll(SDL.SDL_GL_GetProcAddress);
+                SDL.SDL_GL_MakeCurrent(_Handle, _GLContext);
             }
         }
 

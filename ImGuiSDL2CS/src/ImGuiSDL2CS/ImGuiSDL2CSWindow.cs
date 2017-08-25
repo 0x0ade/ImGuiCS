@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using ImGuiNET;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -69,7 +66,7 @@ namespace ImGuiSDL2CS {
 
         public void ImGuiOnLoop(SDL2Window window) {
             GL.ClearColor(0.1f, 0.125f, 0.15f, 1f);
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Clear(GL.Enum.GL_COLOR_BUFFER_BIT);
 
             ImGuiRender();
 
@@ -102,30 +99,30 @@ namespace ImGuiSDL2CS {
             ImFontTextureData texData = io.FontAtlas.GetTexDataAsAlpha8();
 
             int lastTexture;
-            GL.GetInteger(GetPName.TextureBinding2D, out lastTexture);
+            GL.GetIntegerv(GL.Enum.GL_TEXTURE_BINDING_2D, out lastTexture);
 
             // Create OpenGL texture
-            g_FontTexture = GL.GenTexture();
-            GL.BindTexture(TextureTarget.Texture2D, g_FontTexture);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int) TextureMinFilter.Linear);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int) TextureMagFilter.Linear);
-            GL.PixelStore(PixelStoreParameter.UnpackRowLength, 0);
+            GL.GenTextures(1, out g_FontTexture);
+            GL.BindTexture(GL.Enum.GL_TEXTURE_2D, g_FontTexture);
+            GL.TexParameteri(GL.Enum.GL_TEXTURE_2D, GL.Enum.GL_TEXTURE_MIN_FILTER, (int) GL.Enum.GL_LINEAR);
+            GL.TexParameteri(GL.Enum.GL_TEXTURE_2D, GL.Enum.GL_TEXTURE_MAG_FILTER, (int) GL.Enum.GL_LINEAR);
+            GL.PixelStorei(GL.Enum.GL_UNPACK_ROW_LENGTH, 0);
             GL.TexImage2D(
-                TextureTarget.Texture2D,
+                GL.Enum.GL_TEXTURE_2D,
                 0,
-                PixelInternalFormat.Alpha,
+                (int) GL.Enum.GL_ALPHA,
                 texData.Width,
                 texData.Height,
                 0,
-                PixelFormat.Alpha,
-                PixelType.UnsignedByte,
+                GL.Enum.GL_ALPHA,
+                GL.Enum.GL_UNSIGNED_BYTE,
                 texData.Pixels
             );
 
             // Store the texture identifier in the ImFontAtlas substructure.
             io.FontAtlas.SetTexID(g_FontTexture);
             io.FontAtlas.ClearTexData(); // Clears CPU side texture data.
-            GL.BindTexture(TextureTarget.Texture2D, lastTexture);
+            GL.BindTexture(GL.Enum.GL_TEXTURE_2D, lastTexture);
         }
 
         protected override void Dispose(bool disposing) {

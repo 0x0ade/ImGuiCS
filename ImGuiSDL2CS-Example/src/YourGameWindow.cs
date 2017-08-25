@@ -15,18 +15,19 @@ namespace YourGameNamespace {
         public YourGameWindow()
             : base("Your Game Window Title") {
 
+            // Create any managed resources and set up the main game window here.
+            _MemoryEditorData = new byte[1024];
+            Random rnd = new Random();
+            for (int i = 0; i < _MemoryEditorData.Length; i++) {
+                _MemoryEditorData[i] = (byte) rnd.Next(255);
+            }
+
             //////// OPTIONAL ////////
             // This affects the "underlying" SDL2Window and can be used for a quick game loop sketch.
             // Don't set those and only ImGui gets rendered / handled.
             // They're delegate fields so that one can override those from outside.
             OnEvent = MyEventHandler;
             OnLoop = MyGameLoop;
-
-            _MemoryEditorData = new byte[1024];
-            Random rnd = new Random();
-            for (int i = 0; i < _MemoryEditorData.Length; i++) {
-                _MemoryEditorData[i] = (byte) rnd.Next(255);
-            }
 
         }
 
@@ -60,21 +61,21 @@ namespace YourGameNamespace {
                 if (ImGui.Button("Test Window")) show_test_window = !show_test_window;
                 if (ImGui.Button("Another Window")) show_another_window = !show_another_window;
                 ImGui.Text(string.Format("Application average {0:F3} ms/frame ({1:F1} FPS)", 1000f / ImGui.GetIO().Framerate, ImGui.GetIO().Framerate));
-                ImGui.InputText("Text Input 1", _TextInputBuffers[0].Buffer, _TextInputBuffers[0].Length, ImGuiInputTextFlags.Default);
-                ImGui.InputText("Text Input 2", _TextInputBuffers[1].Buffer, _TextInputBuffers[1].Length, ImGuiInputTextFlags.Default);
+                ImGui.InputText("Text Input 1", _TextInputBuffers[0].Buffer, _TextInputBuffers[0].Length);
+                ImGui.InputText("Text Input 2", _TextInputBuffers[1].Buffer, _TextInputBuffers[1].Length);
             }
 
             // 2. Show another simple window, this time using an explicit Begin/End pair
             if (show_another_window) {
-                ImGui.SetNextWindowSize(new ImVec2(200, 100), ImGuiSetCond.FirstUseEver);
-                ImGui.Begin("Another Window", ref show_another_window, ImGuiWindowFlags.Default);
+                ImGui.SetNextWindowSize(new ImVec2(200, 100), ImGuiCond.FirstUseEver);
+                ImGui.Begin("Another Window", ref show_another_window);
                 ImGui.Text("Hello");
-                ImGui.Endow();
+                ImGui.End();
             }
 
             // 3. Show the ImGui test window. Most of the sample code is in ImGui.ShowTestWindow()
             if (show_test_window) {
-                ImGui.SetNextWindowPos(new ImVec2(650, 20), ImGuiSetCond.FirstUseEver);
+                ImGui.SetNextWindowPos(new ImVec2(650, 20), ImGuiCond.FirstUseEver);
                 ImGui.ShowTestWindow(ref show_test_window);
             }
 
@@ -102,10 +103,10 @@ namespace YourGameNamespace {
         public void MyGameLoop(SDL2Window _self) {
             // This is the default implementation, except for the ClearColor not being 0.1f, 0.125f, 0.15f, 1f
 
-            // Using MiniTK (not OpenTK) to provide access to OpenGL methods.
+            // Using minimal ImGuiSDL2CS.GL to provide access to OpenGL methods.
             // Alternatively, use SDL_GL_GetProcAddress on your own.
-            OpenTK.Graphics.OpenGL.GL.ClearColor(clear_color.X, clear_color.Y, clear_color.Z, 1f);
-            OpenTK.Graphics.OpenGL.GL.Clear(OpenTK.Graphics.OpenGL.ClearBufferMask.ColorBufferBit);
+            GL.ClearColor(clear_color.X, clear_color.Y, clear_color.Z, 1f);
+            GL.Clear(GL.Enum.GL_COLOR_BUFFER_BIT);
 
             // This calls ImGuiSDL2CSHelper.NewFrame, the overridden ImGuiLayout, ImGuiSDL2CSHelper.Render and renders it.
             // ImGuiSDL2CSHelper.NewFrame properly sets up ImGuiIO and ImGuiSDL2CSHelper.Render renders the draw data.

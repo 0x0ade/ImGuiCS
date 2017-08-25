@@ -64,17 +64,10 @@
       <Project>{f5011059-c7b9-4eda-9ebd-7595f0e85bd3}</Project>
       <Name>ImGuiSDL2CS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MiniTK\MiniTK.csproj">
-      <Project>{0C7FC6CC-6A37-4776-B5B0-4B5A1327F603}</Project>
-      <Name>MiniTK</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SDL2-CS\SDL2-CS.csproj">
       <Project>{85480198-8711-4355-830E-72FD794AD3F6}</Project>
       <Name>SDL2-CS</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
