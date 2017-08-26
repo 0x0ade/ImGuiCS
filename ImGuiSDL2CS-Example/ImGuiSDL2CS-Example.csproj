@@ -42,7 +42,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Program.cs" />
@@ -50,16 +49,20 @@
     <Compile Include="src\YourGameWindow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\libs\SDL2.dll">
+    <Content Include="..\libs\x64\SDL2.dll">
       <Link>SDL2.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\libs\cimgui.dll">
+    <Content Include="..\libs\x64\cimgui.dll">
       <Link>cimgui.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImGuiCS\ImGuiCS.csproj">
+      <Project>{9bc0f56f-8bc0-4a95-b064-466921025c60}</Project>
+      <Name>ImGuiCS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImGuiSDL2CS\ImGuiSDL2CS.csproj">
       <Project>{f5011059-c7b9-4eda-9ebd-7595f0e85bd3}</Project>
       <Name>ImGuiSDL2CS</Name>
