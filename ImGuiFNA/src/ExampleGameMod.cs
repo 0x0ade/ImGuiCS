@@ -16,7 +16,7 @@ namespace SomeGame {
 
         protected ImGuiXNAState ImGuiState;
 
-        protected extern void orig_Initialize();
+        protected void orig_Initialize() { }
         protected override void Initialize() {
             orig_Initialize();
 
@@ -28,7 +28,7 @@ namespace SomeGame {
             ImGuiState.BuildTextureAtlas();
         }
 
-        protected extern void orig_Draw(GameTime gameTime);
+        protected void orig_Draw(GameTime gameTime) { }
         protected new void Draw(GameTime gameTime) {
             orig_Draw(gameTime);
 
