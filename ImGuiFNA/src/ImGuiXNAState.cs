@@ -18,6 +18,15 @@ namespace ImGuiXNA {
 
         public Effect Effect;
 
+        private RasterizerState RasterizerState = new RasterizerState() {
+            CullMode = CullMode.None,
+            DepthBias = 0,
+            FillMode = FillMode.Solid,
+            MultiSampleAntiAlias = false,
+            ScissorTestEnable = true,
+            SlopeScaleDepthBias = 0
+        };
+
         private Dictionary<int, Texture2D> _IdTextureMap = new Dictionary<int, Texture2D>();
         private Dictionary<Texture2D, int> _TextureIdMap = new Dictionary<Texture2D, int>();
         private int _TextureId = 1;
@@ -235,9 +244,7 @@ namespace ImGuiXNA {
 
             device.BlendFactor = Color.White;
             device.BlendState = BlendState.NonPremultiplied;
-            device.RasterizerState.CullMode = CullMode.None;
-            device.RasterizerState.ScissorTestEnable = true;
-            device.DepthStencilState.DepthBufferEnable = false;
+            device.RasterizerState = RasterizerState;
             device.DepthStencilState = DepthStencilState.DepthRead;
 
             // Handle cases of screen coordinates != from framebuffer coordinates (e.g. retina displays)
