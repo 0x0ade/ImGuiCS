@@ -39,8 +39,19 @@ namespace ImGuiXNA {
 
         private static List<int> _Keys = new List<int>();
 
+#if XNA
+        private ImGuiXNAFormsHook _FormsHook;
+#endif
+
         public ImGuiXNAState(Game game) {
             Init();
+#if XNA
+            _FormsHook = new ImGuiXNAFormsHook(game.Window.Handle, (ref Win32.Message msg) => {
+                if (msg.Msg != 0x0102)
+                    return;
+                OnTextInput((char) msg.WParam);
+            });
+#endif
             Game = game;
         }
 
@@ -73,20 +84,25 @@ namespace ImGuiXNA {
 
 #if FNA
             TextInputEXT.TextInput += OnTextInput;
-            // This would depend on an FNA extension. @flibitijibibo?
-            io.SetGetClipboardTextFn((userData) => SDL2.SDL.SDL_GetClipboardText());
-            io.SetSetClipboardTextFn((userData, text) => SDL2.SDL.SDL_SetClipboardText(text));
-#elif XNA
-            // TODO: Implement text input and clipboard in ImGuiXNA
+            io.SetGetClipboardTextFn(GetClipboardTextFn);
+            io.SetSetClipboardTextFn(SetClipboardTextFn);
 #endif
+            // 1. Text input in XNA depends on the game's window. It thus can't be set up statically.
+            // 2. ImGui already handles the Windows clipboard out of the box.
 
             // If no font added, add default font.
             if (io.FontAtlas.Fonts.Size == 0)
                 io.FontAtlas.AddDefaultFont();
         }
 
-        public static void OnTextInput(char c)
-            => ImGui.AddInputCharacter(c);
+
+
+        public static void OnTextInput(char c) => ImGui.AddInputCharacter(c);
+#if FNA
+        // This would depend on an FNA extension. @flibitijibibo?
+        public readonly static GetClipboardTextFn GetClipboardTextFn = (userData) => SDL2.SDL.SDL_GetClipboardText();
+        public readonly static SetClipboardTextFn SetClipboardTextFn = (userData, text) => SDL2.SDL.SDL_SetClipboardText(text);
+#endif
 
         public void BuildTextureAtlas() {
             ImGuiIO io = ImGui.IO;

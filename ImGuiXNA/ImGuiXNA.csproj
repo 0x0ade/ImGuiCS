@@ -46,6 +46,7 @@
       <HintPath>..\libs\XNA40STRIPPED\Microsoft.Xna.Framework.Graphics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\ImGuiFNA\src\ExampleGameMod.cs">
@@ -58,6 +59,7 @@
       <Link>src\ImGuiXNAState.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\ImGuiXNAFormsHook.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImGuiCS\ImGuiCS.csproj">
