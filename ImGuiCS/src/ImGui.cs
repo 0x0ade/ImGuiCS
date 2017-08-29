@@ -65,7 +65,7 @@ namespace ImGuiNET {
         public static void Text(string message)
             => ImGuiNative.igText(message);
 
-        public static void Text(string message, ImVec4 color)
+        public static void TextColored(ImVec4 color, string message)
             => ImGuiNative.igTextColored(color, message);
 
         public static void TextDisabled(string text)
@@ -108,7 +108,7 @@ namespace ImGuiNET {
             => ImGuiNative.igImageButton(userTextureID, size, uv0, uv1, framePadding, backgroundColor, tintColor);
 
 
-        public static bool CollapsingHeader(string label, ImGuiTreeNodeFlags flags)
+        public static bool CollapsingHeader(string label, ImGuiTreeNodeFlags flags = 0)
             => ImGuiNative.igCollapsingHeader(label, flags);
 
         public static bool Checkbox(string label, ref bool value)
@@ -364,6 +364,8 @@ namespace ImGuiNET {
             return pos;
         }
 
+        public static void SetWindowPos(ImVec2 size, ImGuiCond cond = 0)
+            => ImGuiNative.igSetWindowPos(size, cond);
 
         public static void SetWindowSize(ImVec2 size, ImGuiCond cond = 0)
             => ImGuiNative.igSetWindowSize(size, cond);
@@ -699,7 +701,7 @@ namespace ImGuiNET {
         public static void Spacing()
             => ImGuiNative.igSpacing();
 
-        public static void Columns(int count, string id, bool border)
+        public static void Columns(int count = 1, string id = null, bool border = true)
             => ImGuiNative.igColumns(count, id, border);
 
         public static void NextColumn()
@@ -809,5 +811,9 @@ namespace ImGuiNET {
 
         public static void CalcListClipping(int itemsCount, float itemsHeight, ref int outItemsDisplayStart, ref int outItemsDisplayEnd)
             => ImGuiNative.igCalcListClipping(itemsCount, itemsHeight, ref outItemsDisplayStart, ref outItemsDisplayEnd);
+
+        public static void AlignFirstTextHeightToWidgets()
+            => ImGuiNative.igAlignFirstTextHeightToWidgets();
+
     }
 }

@@ -952,17 +952,17 @@ namespace ImGuiNET {
 
         // ImGuiTextFilter
         [DllImport(cimguiLib)]
-        public static extern void ImGuiTextFilter_Init(void* filter, char* default_filter);
+        public static extern void ImGuiTextFilter_Init(ImGuiTextFilter* filter, char* default_filter);
         [DllImport(cimguiLib)]
-        public static extern void ImGuiTextFilter_Clear(void* filter);
+        public static extern void ImGuiTextFilter_Clear(ImGuiTextFilter* filter);
         [DllImport(cimguiLib)]
-        public static extern bool ImGuiTextFilter_Draw(void* filter, char* label, float width);
+        public static extern bool ImGuiTextFilter_Draw(ImGuiTextFilter* filter, char* label, float width);
         [DllImport(cimguiLib)]
-        public static extern bool ImGuiTextFilter_PassFilter(void* filter, char* text, char* text_end);
+        public static extern bool ImGuiTextFilter_PassFilter(ImGuiTextFilter* filter, char* text, char* text_end);
         [DllImport(cimguiLib)]
-        public static extern bool ImGuiTextFilter_IsActive(void* filter);
+        public static extern bool ImGuiTextFilter_IsActive(ImGuiTextFilter* filter);
         [DllImport(cimguiLib)]
-        public static extern void ImGuiTextFilter_Build(void* filter);
+        public static extern void ImGuiTextFilter_Build(ImGuiTextFilter* filter);
 
         // ImGuiTextEditCallbackData
         [DllImport(cimguiLib)]

@@ -44,7 +44,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\FileDialog.cs" />
     <Compile Include="src\SDL2CSGL.cs" />
     <Compile Include="src\ImGuiSDL2CSHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

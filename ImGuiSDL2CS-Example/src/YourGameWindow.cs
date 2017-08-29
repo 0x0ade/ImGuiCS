@@ -12,6 +12,8 @@ namespace YourGameNamespace {
         private MemoryEditor _MemoryEditor = new MemoryEditor();
         private byte[] _MemoryEditorData;
 
+        private FileDialog _Dialog = new FileDialog(false, false, true, false, false, false);
+
         public YourGameWindow()
             : base("Your Game Window Title") {
 
@@ -50,6 +52,7 @@ namespace YourGameNamespace {
         float f = 0.0f;
         bool show_test_window = true;
         bool show_another_window = false;
+        bool show_file_dialog;
         ImVec3 clear_color = new ImVec3(114f/255f, 144f/255f, 154f/255f);
         public unsafe override void ImGuiLayout() {
             // 1. Show a simple window
@@ -63,6 +66,7 @@ namespace YourGameNamespace {
                 ImGui.Text(string.Format("Application average {0:F3} ms/frame ({1:F1} FPS)", 1000f / ImGui.GetIO().Framerate, ImGui.GetIO().Framerate));
                 ImGui.InputText("Text Input 1", _TextInputBuffers[0].Buffer, _TextInputBuffers[0].Length);
                 ImGui.InputText("Text Input 2", _TextInputBuffers[1].Buffer, _TextInputBuffers[1].Length);
+                if (ImGui.Button("Open File")) show_file_dialog = !show_file_dialog;
             }
 
             // 2. Show another simple window, this time using an explicit Begin/End pair
@@ -79,9 +83,14 @@ namespace YourGameNamespace {
                 ImGui.ShowTestWindow(ref show_test_window);
             }
 
-            // 4. Show the memory editor, just as an example.
+            // 4. Show the memory editor and file dialog, just as an example.
             _MemoryEditor.Draw("Memory editor", _MemoryEditorData, _MemoryEditorData.Length);
-
+            if (show_file_dialog) {
+                string start = _Dialog.LastDirectory;
+                _Dialog.ChooseFileDialog(true, _Dialog.LastDirectory, null, "Choose File", new ImVec2(500, 500), new ImVec2(50, 50), 1f);
+                if (!string.IsNullOrEmpty(_Dialog.ChosenPath))
+                    _TextInputBuffers[0].StringValue = _Dialog.ChosenPath;
+            }
         }
 
         //////// OPTIONAL ////////
