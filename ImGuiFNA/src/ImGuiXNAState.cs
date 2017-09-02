@@ -167,11 +167,17 @@ namespace ImGuiXNA {
         private static void _SetupEffect(ImGuiXNAState self, Effect _effect) {
             ImGuiIO io = ImGui.IO;
 
+#if FNA
+            const float translate = 0f;
+#else
+            const float translate = 0.5f;
+#endif
+
             if (_effect is BasicEffect) {
                 BasicEffect effect = (BasicEffect) _effect;
                 effect.World = Matrix.Identity;
                 effect.View = Matrix.Identity;
-                effect.Projection = Matrix.CreateOrthographicOffCenter(0f, io.DisplaySize.x, io.DisplaySize.y, 0f, -1f, 1f);
+                effect.Projection = Matrix.CreateOrthographicOffCenter(translate, io.DisplaySize.x + translate, io.DisplaySize.y + translate, translate, -1f, 1f);
                 effect.TextureEnabled = true;
                 effect.VertexColorEnabled = true;
                 return;
@@ -181,7 +187,7 @@ namespace ImGuiXNA {
                 AlphaTestEffect effect = (AlphaTestEffect) _effect;
                 effect.World = Matrix.Identity;
                 effect.View = Matrix.Identity;
-                effect.Projection = Matrix.CreateOrthographicOffCenter(0f, io.DisplaySize.x, io.DisplaySize.y, 0f, -1f, 1f);
+                effect.Projection = Matrix.CreateOrthographicOffCenter(translate, io.DisplaySize.x + translate, io.DisplaySize.y + translate, translate, -1f, 1f);
                 effect.VertexColorEnabled = true;
                 return;
             }
