@@ -9,7 +9,7 @@
 
 ### [ImGui.NET](https://github.com/mellinoe/ImGui.NET/) exists already, why fork?
 [ImGui.NET](https://github.com/mellinoe/ImGui.NET/) didn't fit my personal needs. It removed the ImGui prefix from the classes and while it already wraps imgui structs well, accessing some things like the fonts still required unsafe blocks in your own project. ImGuiCS aims to avoid forcing you to go the "dirty" route.  
-Admittedly, it's the more accurate route, but it makes dealing with things like ImVector more complicated as it should be for a beginner.
+Admittedly, going `unsafe` the more accurate route, but it makes dealing with things like ImVector more complicated as it should be for a beginner.
 
 ### SDL2-CS doesn't load / it's an empty directory! What happened?
 You need to `git clone --recursive` to download the SDL2-CS "submodule". If you're not using ImGuiSDL2CS (f.e. you're using ImGuiXNA instead), you can simply disable SDL2-CS in your IDE (Visual Studio / MonoDevelop).
