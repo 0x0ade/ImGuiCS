@@ -58,6 +58,10 @@ namespace ImGuiNET {
             Marshal.FreeHGlobal((IntPtr) data);
         }
 
+        public unsafe void AddImage(ImDrawList list, int userTextureID, ImVec2 a, ImVec2 b, ImVec2 uv_a, ImVec2 uv_b, uint col) {
+            ImGuiNative.ImDrawList_AddImage(Native, (void*) userTextureID, a, b, uv_a, uv_b, col);
+        }
+
         public void PushClipRect(ImVec2 min, ImVec2 max, bool intersectWithCurrentClipRect) {
             ImGuiNative.ImDrawList_PushClipRect(Native, min, max, intersectWithCurrentClipRect ? (byte) 1 : (byte) 0);
         }
