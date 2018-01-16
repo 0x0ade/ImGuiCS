@@ -11,10 +11,6 @@ namespace ImGuiNET {
             Native = native;
         }
 
-        public static ImDrawList GetForCurrentWindow() {
-            return new ImDrawList(ImGuiNative.igGetWindowDrawList());
-        }
-
         public void AddLine(ImVec2 a, ImVec2 b, uint color, float thickness) {
             ImGuiNative.ImDrawList_AddLine(Native, a, b, color, thickness);
         }

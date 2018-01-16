@@ -370,6 +370,9 @@ namespace ImGuiNET {
         public static void SetWindowSize(ImVec2 size, ImGuiCond cond = 0)
             => ImGuiNative.igSetWindowSize(size, cond);
 
+        public static unsafe ImDrawList GetWindowDrawList()
+            => new ImDrawList(ImGuiNative.igGetWindowDrawList());
+
         public static bool Begin(string windowTitle)
             => Begin(windowTitle, ImGuiWindowFlags.Default);
 
