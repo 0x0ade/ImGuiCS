@@ -54,7 +54,7 @@ namespace ImGuiNET {
             Marshal.FreeHGlobal((IntPtr) data);
         }
 
-        public unsafe void AddImage(ImDrawList list, int userTextureID, ImVec2 a, ImVec2 b, ImVec2 uv_a, ImVec2 uv_b, uint col) {
+        public unsafe void AddImage(int userTextureID, ImVec2 a, ImVec2 b, ImVec2 uv_a, ImVec2 uv_b, uint col) {
             ImGuiNative.ImDrawList_AddImage(Native, (void*) userTextureID, a, b, uv_a, uv_b, col);
         }
 
@@ -72,6 +72,16 @@ namespace ImGuiNET {
 
         public void AddDrawCmd() {
             ImGuiNative.ImDrawList_AddDrawCmd(Native);
+        }
+
+        public void AddCallback(NativeImDrawCallback callback) {
+            ImGuiNative.ImDrawList_AddCallback(Native, callback, (void*) IntPtr.Zero);
+        }
+
+        public void AddCallback(ImDrawCallback callback) {
+            ImGuiNative.ImDrawList_AddCallback(Native, (parent_list, cmd) => {
+                callback(ref (*parent_list), ref (*cmd));
+            }, (void*) IntPtr.Zero);
         }
 
         /// <summary>

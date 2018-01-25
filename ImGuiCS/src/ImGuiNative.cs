@@ -915,7 +915,7 @@ namespace ImGuiNET {
         [DllImport(cimguiLib)]
         public static extern void ImDrawList_ChannelsSetCurrent(NativeImDrawList* list, int channel_index);
         [DllImport(cimguiLib)]
-        public static extern void ImDrawList_AddCallback(NativeImDrawList* list, ImDrawCallback callback, void* callback_data);
+        public static extern void ImDrawList_AddCallback(NativeImDrawList* list, NativeImDrawCallback callback, void* callback_data);
         [DllImport(cimguiLib)]
         public static extern void ImDrawList_AddDrawCmd(NativeImDrawList* list);
         [DllImport(cimguiLib)]
@@ -1038,6 +1038,7 @@ namespace ImGuiNET {
     }
 
     public delegate bool ItemSelectedCallback(IntPtr data, int index, string out_text);
-    public unsafe delegate void ImDrawCallback(NativeImDrawList* parent_list, ImDrawCmd* cmd);
-    public unsafe delegate int ImGuiTextEditCallback(ImGuiTextEditCallbackData* data);
+    public unsafe delegate void ImDrawCallback(ref NativeImDrawList parent_list, ref ImDrawCmd cmd);
+    public unsafe delegate void NativeImDrawCallback(NativeImDrawList* parent_list, ImDrawCmd* cmd);
+    public unsafe delegate int ImGuiTextEditCallback(ref ImGuiTextEditCallbackData data);
 }

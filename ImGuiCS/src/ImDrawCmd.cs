@@ -30,11 +30,12 @@ namespace ImGuiNET {
         /// </summary>
         public IntPtr UserCallbackData;
 
-        private readonly static Type t_ImDrawCallback = typeof(ImDrawCallback);
+        private readonly static Type t_NativeImDrawCallback = typeof(NativeImDrawCallback);
         public unsafe void InvokeUserCallback(ref ImDrawList cmdList, ref ImDrawCmd pcmd) {
             // This is possibly slow as hell! TODO: Optimize!
+            NativeImDrawCallback cb = (NativeImDrawCallback) Marshal.GetDelegateForFunctionPointer(UserCallback, t_NativeImDrawCallback);
             fixed (ImDrawCmd* pcmdPtr = &pcmd)
-                ((ImDrawCallback) Marshal.GetDelegateForFunctionPointer(UserCallback, t_ImDrawCallback))(cmdList.Native, pcmdPtr);
+                cb(cmdList.Native, pcmdPtr);
         }
     }
 }

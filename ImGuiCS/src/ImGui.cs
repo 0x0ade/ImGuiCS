@@ -94,18 +94,18 @@ namespace ImGuiNET {
         public static bool InvisibleButton(string id, ImVec2 size)
             => ImGuiNative.igInvisibleButton(id, size);
 
-        public static void Image(IntPtr userTextureID, ImVec2 size, ImVec2 uv0, ImVec2 uv1, ImVec4 tintColor, ImVec4 borderColor)
-            => ImGuiNative.igImage(userTextureID, size, uv0, uv1, tintColor, borderColor);
+        public static void Image(int userTextureID, ImVec2 size, ImVec2 uv0, ImVec2 uv1, ImVec4 tintColor, ImVec4 borderColor)
+            => ImGuiNative.igImage((IntPtr) userTextureID, size, uv0, uv1, tintColor, borderColor);
 
         public static bool ImageButton(
-            IntPtr userTextureID,
+            int userTextureID,
             ImVec2 size,
             ImVec2 uv0,
             ImVec2 uv1,
             int framePadding,
             ImVec4 backgroundColor,
             ImVec4 tintColor)
-            => ImGuiNative.igImageButton(userTextureID, size, uv0, uv1, framePadding, backgroundColor, tintColor);
+            => ImGuiNative.igImageButton((IntPtr) userTextureID, size, uv0, uv1, framePadding, backgroundColor, tintColor);
 
 
         public static bool CollapsingHeader(string label, ImGuiTreeNodeFlags flags = 0)

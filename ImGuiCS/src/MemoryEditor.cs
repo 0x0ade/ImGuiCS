@@ -123,11 +123,11 @@ namespace ImGuiNET
                         ImGui.PushID(addr);
 
                         // FIXME: We should have a way to retrieve the text edit cursor position more easily in the API, this is rather tedious.
-                        ImGuiTextEditCallback callback = (data) =>
+                        ImGuiTextEditCallback callback = (ref ImGuiTextEditCallbackData data) =>
                         {
-                            int* p_cursor_pos = (int*)data->UserData;
-                            if (!data->HasSelection())
-                                *p_cursor_pos = data->CursorPos;
+                            int* p_cursor_pos = (int*)data.UserData;
+                            if (!data.HasSelection())
+                                *p_cursor_pos = data.CursorPos;
                             return 0;
                         };
                         int cursor_pos = -1;
