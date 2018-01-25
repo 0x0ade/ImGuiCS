@@ -39,6 +39,27 @@ namespace ImGuiNET {
         }
 
         /// <summary>
+        /// Mouse is hovering a window or widget is active (= ImGui will use your mouse input).
+        /// </summary>
+        public bool WantCaptureMouse {
+            get { return Native->WantCaptureMouse == 1; }
+        }
+
+        /// <summary>
+        /// Widget is active (= ImGui will use your keyboard input).
+        /// </summary>
+        public bool WantCaptureKeyboard {
+            get { return Native->WantCaptureKeyboard == 1; }
+        }
+
+        /// <summary>
+        /// Some text input widget is active, which will read input characters from the InputCharacters array.
+        /// </summary>
+        public bool WantTextInput {
+            get { return Native->WantTextInput == 1; }
+        }
+
+        /// <summary>
         /// Application framerate estimation, in frame per second. Solely for convenience.
         /// Rolling average estimation based on IO.DeltaTime over 120 frames
         /// </summary>
