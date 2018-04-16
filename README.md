@@ -19,6 +19,8 @@ If you require compatibility, I'd be thankful if you could help me as I don't pl
 You can still build ImGuiCS and the other projects in VS2015+ and use the resulting binaries.  
 Tip: If you're dealing with XNA Game Studio, MXA provides downloads to get it up and running in VS2015: https://mxa.codeplex.com/releases
 
+There is an unofficial, VS2010-compatible lock-step fork available here: https://github.com/conatuscreative/ImGuiCS
+
 ### cimgui.dll / SDL2.dll doesn't load!
 Use the native libraries from [libs/x86 (32 bit) or libs/x64 (64 bit)](https://github.com/0x0ade/ImGuiCS/tree/master/libs) instead. You could also ship both directories and create a `.dll.config` file for `ImGuiCS.dll` / `SDL2-CS.dll` that takes this into account.
 
