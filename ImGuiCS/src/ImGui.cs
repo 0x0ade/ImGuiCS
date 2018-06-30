@@ -599,6 +599,12 @@ namespace ImGuiNET {
         public static void EndChild()
             => ImGuiNative.igEndChild();
 
+        public static void BeginGroup()
+            => ImGuiNative.igBeginGroup();
+
+        public static void EndGroup()
+            => ImGuiNative.igEndGroup();
+        
         public static ImVec2 GetContentRegionMax() {
             ImVec2 value;
             ImGuiNative.igGetContentRegionMax(out value);
